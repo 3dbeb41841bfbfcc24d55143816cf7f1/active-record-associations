@@ -44,16 +44,16 @@ class VetClinic
   def process_command(command)
     keep_going = true
     case command
-    when 'IO' then do_index_owners
-    when 'CO' then do_create_owner
-    when 'RO' then do_read_owner
-    when 'UO' then do_update_owner
-    when 'DO' then do_delete_owner
-    when 'IP' then do_index_pets
-    when 'CP' then do_create_pet
-    when 'RP' then do_read_pet
-    when 'UP' then do_update_pet
-    when 'DP' then do_delete_pet
+    when 'IO' then index_owners
+    when 'CO' then create_owner
+    when 'RO' then read_owner
+    when 'UO' then update_owner
+    when 'DO' then delete_owner
+    when 'IP' then index_pets
+    when 'CP' then create_pet
+    when 'RP' then read_pet
+    when 'UP' then update_pet
+    when 'DP' then delete_pet
     when 'Q'  then keep_going = false
     else
       puts 'That is not a valid command'
@@ -66,26 +66,26 @@ class VetClinic
     gets.chomp
   end
 
-  def do_index_owners
+  def index_owners
     puts 'Owners'
     owners = Owner.all
     puts owners
   end
 
-  def do_create_owner
+  def create_owner
     first_name = get_response('Enter the first name of the owner: ')
     last_name  = get_response('Enter the last name of the owner: ')
     Owner.new('first_name' => first_name, 'last_name' => last_name).save
     puts "#{first_name} #{last_name} has been added to the database."
   end
 
-  def do_read_owner
+  def read_owner
     id = get_response('Enter the id of the owner:').to_i
     owner = Owner.find(id)
     puts owner ? owner : 'Owner not found'
   end
 
-  def do_update_owner
+  def update_owner
     id = get_response('Enter the id of the owner:').to_i
     owner = Owner.find(id)
     if owner
@@ -97,7 +97,7 @@ class VetClinic
     end
   end
 
-  def do_delete_owner
+  def delete_owner
     id = get_response('Enter the id of the owner:').to_i
     owner = Owner.find(id)
     if owner
@@ -107,13 +107,13 @@ class VetClinic
     end
   end
 
-  def do_index_pets
+  def index_pets
     puts 'Pets'
     pets = Pet.all
     puts pets
   end
 
-  def do_create_pet
+  def create_pet
     name      = get_response('Enter the name of the pet:')
     type      = get_response('Enter the type of the pet:')
     age       = get_response('Enter the age of the pet:')
@@ -125,13 +125,13 @@ class VetClinic
     puts "#{name} has been added to the database."
   end
 
-  def do_read_pet
+  def read_pet
     id = get_response('Enter the id of the pet:').to_i
     pet = Pet.find(id)
     puts pet ? pet : 'Pet not found'
   end
 
-  def do_update_pet
+  def update_pet
     id = get_response('Enter the id of the pet:').to_i
     pet = Pet.find(id)
     if pet
@@ -146,7 +146,7 @@ class VetClinic
   end
 
   # new stuff:
-  def do_delete_pet
+  def delete_pet
     id = get_response('Enter the id of the pet:').to_i
     pet = Pet.find(id)
     if pet
